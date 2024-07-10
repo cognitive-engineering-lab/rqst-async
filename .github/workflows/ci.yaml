@@ -6,7 +6,7 @@ on:
       - "**"
 
 jobs:
-  tests:
+  Tests:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -18,4 +18,4 @@ jobs:
       - name: Test
         run: cargo test
       - name: Lints
-        run: cargo clippy -- -D warnings
+        run: ./.githooks/pre-commit
