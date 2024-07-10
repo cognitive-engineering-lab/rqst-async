@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ChatABC</title>
+  </head>
+  <body>
+    <h1>ChatABC</h1>
+    <form id="input">
+      <input type="text" />
+      <input type="submit" />
+    </form>
+    <div id="messages"></div>
+
+    <script>
+      let chat = { messages: [] };
+      let msgContainer = document.getElementById("messages");
+      let textEl = document.querySelector("form input[type=text]");
+
+      async function fetchChat(chat) {
+        let response = await fetch("/chat", {
+          method: "post",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify(chat)
+        });
+        return await response.json();
+      }   
+
+      function updateChat(newChat) {
+        chat = newChat;
+        msgContainer.innerHTML = '';
+        for (let msg of chat.messages) {
+          msgContainer.innerHTML += `<div>${msg}</div>`;
+        }
+      }
+      
+      function onSubmit(event) {
+        event.preventDefault();
+        chat.messages.push(textEl.value);
+        textEl.value = "";
+        fetchChat(chat).then(updateChat);        
+      }
+
+      function main() {
+        document.getElementById("input").addEventListener("submit", onSubmit);        
+      }
+
+      main();
+    </script>
+  </body>
+</html>
