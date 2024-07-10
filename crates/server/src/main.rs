@@ -1,3 +1,4 @@
+use anyhow::Result;
 use axum::{
     response::Html,
     routing::{get, post},
@@ -21,10 +22,11 @@ async fn chat(Json(mut chat): Json<Chat>) -> Json<Chat> {
 }
 
 #[tokio::main]
-async fn main() {
+async fn main() -> Result<()> {
     let app = Router::new()
         .route("/", get(root))
         .route("/chat", post(chat));
-    let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await.unwrap();
-    axum::serve(listener, app).await.unwrap();
+    let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await?;
+    axum::serve(listener, app).await?;
+    Ok(())
 }
