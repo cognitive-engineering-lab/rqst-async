@@ -8,3 +8,7 @@ anyhow = "1.0.86"
 axum = { workspace = true }
 serde = { workspace = true }
 tokio = { workspace = true }
+chatbot = { path = "../chatbot" }
+
+[dev-dependencies]
+rand = { workspace = true }
