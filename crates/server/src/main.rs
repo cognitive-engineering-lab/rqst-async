@@ -30,3 +30,25 @@ async fn main() -> Result<()> {
     axum::serve(listener, app).await?;
     Ok(())
 }
+
+#[tokio::test]
+async fn chat_test() {
+    chatbot::seed_rng(0);
+
+    let mut chat_state = Chat {
+        messages: Vec::new(),
+    };
+
+    for _ in 0..3 {
+        chat_state = chat(Json(chat_state)).await.0;
+    }
+
+    assert_eq!(
+        chat_state.messages,
+        vec![
+            "And how does that make you feel?",
+            "Interesting! Go on...",
+            "And how does that make you feel?"
+        ]
+    );
+}
