@@ -5,6 +5,7 @@ use axum::{
     Json, Router,
 };
 use serde::{Deserialize, Serialize};
+use tokio::join;
 
 async fn root() -> Html<&'static str> {
     Html(include_str!("../index.html"))
@@ -16,8 +17,11 @@ struct Chat {
 }
 
 async fn chat(Json(mut chat): Json<Chat>) -> Json<Chat> {
-    chat.messages
-        .push("And how does that make you feel?".to_string());
+    let responses_fut = chatbot::query_chat(&chat.messages);
+    let random_fut = chatbot::gen_random_number();
+    let (mut responses, random) = join!(responses_fut, random_fut);
+    let response = responses.remove(random % responses.len());
+    chat.messages.push(response);
     Json(chat)
 }
 
