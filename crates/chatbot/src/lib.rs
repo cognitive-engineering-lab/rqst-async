@@ -23,7 +23,7 @@ pub async fn gen_random_number() -> usize {
 /// Generates a list of possible responses given the current chat.
 ///
 /// Warning: may take a few seconds!
-pub async fn query_chat(_messages: &[String]) -> Vec<String> {
+pub fn query_chat(_messages: &[String]) -> Vec<String> {
     thread::sleep(Duration::from_secs(2));
     vec![
         "And how does that make you feel?".to_string(),
