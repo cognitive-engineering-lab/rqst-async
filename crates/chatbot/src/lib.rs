@@ -1,6 +1,7 @@
 use rand::{rngs::SmallRng, Rng, SeedableRng};
+use std::thread;
 use std::{cell::RefCell, time::Duration};
-use tokio::time::sleep;
+use tokio::time;
 
 thread_local! {
     static RNG: RefCell<SmallRng> = RefCell::new(SmallRng::from_entropy());
@@ -15,7 +16,7 @@ pub fn seed_rng(seed: u64) {
 ///
 /// Warning: may take a few seconds!
 pub async fn gen_random_number() -> usize {
-    sleep(Duration::from_secs(2)).await;
+    time::sleep(Duration::from_secs(2)).await;
     RNG.with(|rng| rng.borrow_mut().gen())
 }
 
@@ -23,7 +24,7 @@ pub async fn gen_random_number() -> usize {
 ///
 /// Warning: may take a few seconds!
 pub async fn query_chat(_messages: &[String]) -> Vec<String> {
-    sleep(Duration::from_secs(2)).await;
+    thread::sleep(Duration::from_secs(2));
     vec![
         "And how does that make you feel?".to_string(),
         "Interesting! Go on...".to_string(),
