@@ -35,24 +35,46 @@ async fn main() -> Result<()> {
     Ok(())
 }
 
-#[tokio::test]
-async fn chat_test() {
-    chatbot::seed_rng(0);
+#[cfg(test)]
+mod test {
+    use super::*;
+    use std::time::Instant;
 
-    let mut chat_state = Chat {
-        messages: Vec::new(),
-    };
+    #[tokio::test]
+    async fn chat_test() {
+        chatbot::seed_rng(0);
 
-    for _ in 0..3 {
-        chat_state = chat(Json(chat_state)).await.0;
+        let mut chat_state = Chat {
+            messages: Vec::new(),
+        };
+
+        for _ in 0..3 {
+            chat_state = chat(Json(chat_state)).await.0;
+        }
+
+        assert_eq!(
+            chat_state.messages,
+            vec![
+                "And how does that make you feel?",
+                "Interesting! Go on...",
+                "And how does that make you feel?"
+            ]
+        );
     }
 
-    assert_eq!(
-        chat_state.messages,
-        vec![
-            "And how does that make you feel?",
-            "Interesting! Go on...",
-            "And how does that make you feel?"
-        ]
-    );
+    #[tokio::test]
+    async fn chat_speed_test() {
+        let chat_state = Chat {
+            messages: Vec::new(),
+        };
+
+        let start = Instant::now();
+        let _ = chat(Json(chat_state)).await;
+
+        let elapsed = start.elapsed().as_secs_f32();
+        assert!(
+            elapsed < 3.,
+            "Speed test took longer than 3s: {elapsed:.2}s"
+        );
+    }
 }
