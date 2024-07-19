@@ -1,4 +1,6 @@
 title = "Async Rust"
+author = "cognitive-engineering-lab"
+repo = "rqst-async"
 
 [[stages]]
 label = "async-await"
