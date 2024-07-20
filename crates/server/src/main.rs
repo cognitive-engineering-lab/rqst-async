@@ -1,3 +1,5 @@
+use std::sync::Arc;
+
 use anyhow::Result;
 use axum::{
     response::Html,
@@ -16,11 +18,16 @@ struct Chat {
     messages: Vec<String>,
 }
 
-async fn chat(Json(mut chat): Json<Chat>) -> Json<Chat> {
-    let responses_fut = chatbot::query_chat(&chat.messages);
+async fn chat(Json(chat): Json<Chat>) -> Json<Chat> {
+    let chat_arc = Arc::new(chat);
+    let chat_arc_ref = Arc::clone(&chat_arc);
+    let responses_fut =
+        tokio::spawn(async move { chatbot::query_chat(&chat_arc_ref.messages).await });
     let random_fut = chatbot::gen_random_number();
-    let (mut responses, random) = join!(responses_fut, random_fut);
+    let (responses, random) = join!(responses_fut, random_fut);
+    let mut responses = responses.unwrap();
     let response = responses.remove(random % responses.len());
+    let mut chat = Arc::into_inner(chat_arc).unwrap();
     chat.messages.push(response);
     Json(chat)
 }
