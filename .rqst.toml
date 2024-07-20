@@ -3,9 +3,9 @@ author = "cognitive-engineering-lab"
 repo = "rqst-async"
 
 [[stages]]
-label = "async-await"
+label = "01-async-await"
 name = "Async and Await"
 
 [[stages]]
-label = "spawn"
+label = "02-spawn"
 name = "Spawning Futures"
