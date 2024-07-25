@@ -128,16 +128,17 @@ fn generate_response(
     };
 
     match response_res {
-        Ok(content) => match content {
-            crate::Content::Html(body) => http::Response::builder()
-                .header("Content-Type", "text/html")
+        Ok(content) => {
+            let (body, ty) = match content {
+                crate::Content::Html(body) => (body, "text/html"),
+                crate::Content::Json(body) => (body, "application/json"),
+            };
+            http::Response::builder()
+                .header("Content-Type", ty)
+                .header("Content-Length", body.len())
                 .body(body.into_bytes())
-                .unwrap(),
-            crate::Content::Json(body) => http::Response::builder()
-                .header("Content-Type", "application/json")
-                .body(body.into_bytes())
-                .unwrap(),
-        },
+                .unwrap()
+        }
         Err(status) => make_response(status, "Handler failed"),
     }
 }
