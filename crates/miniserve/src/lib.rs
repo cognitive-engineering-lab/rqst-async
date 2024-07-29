@@ -56,7 +56,6 @@ impl Server {
     ///
     /// This function should never return.
     pub fn run(self) {
-        fdlimit::raise_fd_limit().unwrap();
         let listener = TcpListener::bind("127.0.0.1:3000").unwrap();
         let this = Arc::new(self);
         for stream in listener.incoming().flatten() {

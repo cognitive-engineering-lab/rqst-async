@@ -1,7 +1,8 @@
 use miniserve::{Content, Request, Response};
 
 fn index(_req: Request) -> Response {
-    Ok(Content::Html(include_str!("../index.html").into()))
+    let content = include_str!("../index.html").to_string();
+    Ok(Content::Html(content))
 }
 
 fn main() {

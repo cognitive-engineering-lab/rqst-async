@@ -3,7 +3,7 @@
 //! You should not need to deal with this module.
 
 use std::{
-    io::{self, BufRead, BufReader, BufWriter, Read, Write},
+    io::{self, BufRead, BufReader, BufWriter, Write},
     net::{Shutdown, TcpStream},
 };
 
