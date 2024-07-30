@@ -1,10 +1,6 @@
-use std::{
-    collections::HashMap,
-    io::{self},
-    net::{TcpListener, TcpStream},
-    sync::Arc,
-    thread,
-};
+use std::{collections::HashMap, future::Future, io, sync::Arc};
+use tokio::net::{TcpListener, TcpStream};
+use tokio_util::sync::ReusableBoxFuture;
 
 /// Re-export for library clients.
 pub use http;
@@ -30,15 +26,27 @@ pub enum Content {
 pub type Response = Result<Content, http::StatusCode>;
 
 /// Trait alias for functions that can handle requests and return responses.
-pub trait Handler: Fn(Request) -> Response + Send + Sync + 'static {}
+pub trait Handler: Fn(Request) -> Self::Future + Send + Sync + 'static {
+    type Future: Future<Output = Response> + Send + Sync + 'static;
+}
 
-impl<F> Handler for F where F: Fn(Request) -> Response + Send + Sync + 'static {}
+impl<F, H> Handler for H
+where
+    F: Future<Output = Response> + Send + Sync + 'static,
+    H: Fn(Request) -> F + Send + Sync + 'static,
+{
+    type Future = F;
+}
+
+struct ErasedHandler(
+    Box<dyn Fn(Request) -> ReusableBoxFuture<'static, Response> + Send + Sync + 'static>,
+);
 
 /// The main server data structure.
 #[derive(Default)]
 pub struct Server {
     /// Map from a route path (e.g., "/foo") to a handler function for that route.
-    routes: HashMap<String, Box<dyn Handler>>,
+    routes: HashMap<String, ErasedHandler>,
 }
 
 impl Server {
@@ -51,27 +59,32 @@ impl Server {
 
     /// Adds a new route to the server.
     pub fn route<H: Handler>(mut self, route: impl Into<String>, handler: H) -> Self {
-        self.routes.insert(route.into(), Box::new(handler));
+        let handler = Arc::new(handler);
+        let erased = ErasedHandler(Box::new(move |req| {
+            let handler_ref = Arc::clone(&handler);
+            ReusableBoxFuture::new(async move { handler_ref(req).await })
+        }));
+        self.routes.insert(route.into(), erased);
         self
     }
 
     /// Runs the server by listening for connections and returning responses.
     ///
     /// This function should never return.
-    pub fn run(self) {
-        let listener = TcpListener::bind("127.0.0.1:3000").unwrap();
+    pub async fn run(self) {
+        let listener = TcpListener::bind("127.0.0.1:3000").await.unwrap();
         let this = Arc::new(self);
-        for stream in listener.incoming().flatten() {
-            let this_ref = Arc::clone(&this);
-            thread::spawn(move || {
-                let _ = this_ref.handle(stream);
-            });
+        loop {
+            if let Ok((stream, _)) = listener.accept().await {
+                let this_ref = Arc::clone(&this);
+                tokio::spawn(async move {
+                    let _ = this_ref.handle(stream).await;
+                });
+            }
         }
     }
 
-    fn handle(&self, stream: TcpStream) -> io::Result<()> {
-        protocol::handle(stream, |route, request| {
-            self.routes.get(route).map(move |handler| handler(request))
-        })
+    async fn handle(&self, stream: TcpStream) -> io::Result<()> {
+        protocol::handle(stream, &|route| self.routes.get(route)).await
     }
 }
