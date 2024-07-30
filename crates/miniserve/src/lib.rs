@@ -60,7 +60,9 @@ impl Server {
         let this = Arc::new(self);
         for stream in listener.incoming().flatten() {
             let this_ref = Arc::clone(&this);
-            thread::spawn(move || this_ref.handle(stream).unwrap());
+            thread::spawn(move || {
+                let _ = this_ref.handle(stream);
+            });
         }
     }
 

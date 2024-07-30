@@ -38,7 +38,7 @@ pub fn stringify_response(response: http::Response<Vec<u8>>) -> Vec<u8> {
 }
 
 fn parse_request(src: &[u8]) -> Result<Option<http::Request<Vec<u8>>>, http::Response<Vec<u8>>> {
-    let mut headers = [httparse::EMPTY_HEADER; 16];
+    let mut headers = [httparse::EMPTY_HEADER; 64];
     let mut parsed_req = httparse::Request::new(&mut headers);
     let Ok(status) = parsed_req.parse(src) else {
         return Err(make_response(
