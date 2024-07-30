@@ -6,6 +6,9 @@ use std::{
     thread,
 };
 
+/// Re-export for library clients.
+pub use http;
+
 /// Implementation details for HTTP.
 mod protocol;
 
@@ -29,7 +32,7 @@ pub type Response = Result<Content, http::StatusCode>;
 /// Trait alias for functions that can handle requests and return responses.
 pub trait Handler: Fn(Request) -> Response + Send + Sync + 'static {}
 
-impl<F: Fn(Request) -> Response + Send + Sync + 'static> Handler for F {}
+impl<F> Handler for F where F: Fn(Request) -> Response + Send + Sync + 'static {}
 
 /// The main server data structure.
 #[derive(Default)]
