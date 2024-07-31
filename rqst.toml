@@ -5,6 +5,7 @@ repo = "rqst-async"
 [[stages]]
 label = "00-chat-route"
 name = "Warmup"
+no-starter = true
 
 [[stages]]
 label = "01-async-await"
@@ -12,8 +13,8 @@ name = "Async and Await"
 
 [[stages]]
 label = "02-join"
-name = "The join! macro"
+name = "Joining Futures"
 
 [[stages]]
 label = "03-spawn"
-name = "Spawning tasks"
+name = "Spawning Tasks"
