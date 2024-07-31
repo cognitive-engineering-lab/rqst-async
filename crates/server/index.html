@@ -37,17 +37,20 @@
       let spinnerEl = document.getElementById("spinner");
 
       async function fetchChat(chat) {
-        let promise = fetch("/chat", {
-          method: "post",
-          headers: {"Content-Type": "application/json"},
-          body: JSON.stringify(chat)
-        });
         spinnerEl.classList.add("active");
-
-        let response = await promise;
-        spinnerEl.classList.remove("active");
-
-        return await response.json();
+        textEl.setAttribute("disabled", "");
+        try {
+          let response = await fetch("/chat", {
+            method: "post",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(chat)
+          });
+          if (!response.ok) throw new Error(response.statusText);
+          return await response.json();
+        } finally {
+          spinnerEl.classList.remove("active");
+          textEl.removeAttribute("disabled");
+        }
       }   
 
       function updateChat(newChat) {
@@ -62,7 +65,7 @@
         event.preventDefault();
         chat.messages.push(textEl.value);
         textEl.value = "";
-        fetchChat(chat).then(updateChat);        
+        fetchChat(chat).then(updateChat);
       }
 
       function main() {
