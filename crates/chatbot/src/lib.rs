@@ -18,14 +18,29 @@ pub async fn gen_random_number() -> usize {
     RNG.with(|rng| rng.borrow_mut().gen())
 }
 
-/// Generates a list of possible responses given the current chat.
-///
-/// Warning: may take a few seconds!
-pub async fn query_chat(messages: &[String]) -> Vec<String> {
-    std::thread::sleep(Duration::from_secs(2));
-    let most_recent = messages.last().unwrap();
-    vec![
-        format!("\"{most_recent}\"? And how does that make you feel?"),
-        format!("\"{most_recent}\"! Interesting! Go on..."),
-    ]
+/// A chatbot that responds to inputs.
+pub struct Chatbot {
+    emoji: String,
+}
+
+impl Chatbot {
+    /// Creates a new chatbot that uses the provided emoji in its responses.
+    pub fn new(emoji: String) -> Self {
+        Chatbot { emoji }
+    }
+
+    /// Generates a list of possible responses given the current chat.
+    ///
+    /// Warning: may take a few seconds!
+    pub async fn query_chat(&self, messages: &[String]) -> Vec<String> {
+        std::thread::sleep(Duration::from_secs(2));
+        let most_recent = messages.last().unwrap();
+        vec![
+            format!(
+                "\"{most_recent}\"? And how does that make you feel? {}",
+                self.emoji
+            ),
+            format!("\"{most_recent}\"! Interesting! Go on... {}", self.emoji),
+        ]
+    }
 }
