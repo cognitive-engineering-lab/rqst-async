@@ -22,3 +22,7 @@ name = "Spawning Tasks"
 [[stages]]
 label = "04-message-passing"
 name = "Message Passing"
+
+[[stages]]
+label = "05-many-futures"
+name = "Waiting on Many Futures"
