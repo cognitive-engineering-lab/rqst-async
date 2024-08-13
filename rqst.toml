@@ -18,3 +18,7 @@ name = "Joining Futures"
 [[stages]]
 label = "03-spawn"
 name = "Spawning Tasks"
+
+[[stages]]
+label = "04-message-passing"
+name = "Message Passing"
