@@ -21,10 +21,11 @@ pub async fn gen_random_number() -> usize {
 /// Generates a list of possible responses given the current chat.
 ///
 /// Warning: may take a few seconds!
-pub async fn query_chat(_messages: &[String]) -> Vec<String> {
+pub async fn query_chat(messages: &[String]) -> Vec<String> {
     tokio::time::sleep(Duration::from_secs(2)).await;
+    let most_recent = messages.last().unwrap();
     vec![
-        "And how does that make you feel?".to_string(),
-        "Interesting! Go on...".to_string(),
+        format!("\"{most_recent}\"? And how does that make you feel?"),
+        format!("\"{most_recent}\"! Interesting! Go on..."),
     ]
 }
