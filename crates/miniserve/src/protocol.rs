@@ -129,7 +129,7 @@ pub async fn handle<'a>(
     callback: &'a (impl Fn(&str) -> Option<&'a crate::ErasedHandler> + 'a),
 ) -> io::Result<()> {
     let mut transport = Framed::new(stream, HttpCodec);
-    while let Some(request) = transport.next().await {
+    if let Some(request) = transport.next().await {
         match request {
             Ok(request) => {
                 let response = generate_response(request, callback).await;
