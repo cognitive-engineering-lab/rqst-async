@@ -44,7 +44,7 @@ impl Chatbot {
     ///
     /// Warning: may take a few seconds!
     pub async fn query_chat(&mut self, messages: &[String], docs: &[String]) -> Vec<String> {
-        std::thread::sleep(Duration::from_secs(2));
+        tokio::time::sleep(Duration::from_secs(2)).await;
         let most_recent = messages.last().unwrap();
         let emoji = &self.emojis[self.emoji_counter];
         self.emoji_counter = (self.emoji_counter + 1) % self.emojis.len();
