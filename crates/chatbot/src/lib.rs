@@ -14,7 +14,8 @@ pub fn seed_rng(seed: u64) {
 ///
 /// Warning: may take a few seconds!
 pub async fn gen_random_number() -> usize {
-    tokio::time::sleep(Duration::from_secs(2)).await;
+    let sleep_time = RNG.with(|rng| rng.borrow_mut().gen_range::<f32, _>(0. ..5.));
+    tokio::time::sleep(Duration::from_secs_f32(sleep_time)).await;
     RNG.with(|rng| rng.borrow_mut().gen())
 }
 
@@ -44,8 +45,9 @@ impl Chatbot {
     ///
     /// Warning: may take a few seconds!
     pub async fn query_chat(&mut self, messages: &[String], docs: &[String]) -> Vec<String> {
-        tokio::time::sleep(Duration::from_secs(2)).await;
         let most_recent = messages.last().unwrap();
+        let sleep_time = RNG.with(|rng| rng.borrow_mut().gen_range::<f32, _>(0. ..5.));
+        tokio::time::sleep(Duration::from_secs_f32(sleep_time)).await;
         let emoji = &self.emojis[self.emoji_counter];
         self.emoji_counter = (self.emoji_counter + 1) % self.emojis.len();
         vec![
