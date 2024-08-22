@@ -1,8 +1,7 @@
 #![warn(clippy::pedantic)]
 
-use std::{collections::HashMap, future::Future, io, sync::Arc};
+use std::{collections::HashMap, future::Future, io, pin::Pin, sync::Arc};
 use tokio::net::{TcpListener, TcpStream};
-use tokio_util::sync::ReusableBoxFuture;
 
 /// Re-export for library clients.
 pub use http;
@@ -40,9 +39,8 @@ where
     type Future = F;
 }
 
-struct ErasedHandler(
-    Box<dyn Fn(Request) -> ReusableBoxFuture<'static, Response> + Send + Sync + 'static>,
-);
+type ErasedHandler =
+    Box<dyn Fn(Request) -> Pin<Box<dyn Future<Output = Response> + Send + Sync>> + Send + Sync>;
 
 /// The main server data structure.
 #[derive(Default)]
@@ -64,10 +62,10 @@ impl Server {
     #[must_use]
     pub fn route<H: Handler>(mut self, route: impl Into<String>, handler: H) -> Self {
         let handler = Arc::new(handler);
-        let erased = ErasedHandler(Box::new(move |req| {
+        let erased = Box::new(move |req| {
             let handler_ref = Arc::clone(&handler);
-            ReusableBoxFuture::new(async move { handler_ref(req).await })
-        }));
+            Box::pin(handler_ref(req)) as Pin<Box<dyn Future<Output = Response> + Send + Sync>>
+        });
         self.routes.insert(route.into(), erased);
         self
     }
