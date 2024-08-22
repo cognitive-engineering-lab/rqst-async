@@ -1,6 +1,8 @@
 use std::{
     path::PathBuf,
+    pin::pin,
     sync::{Arc, LazyLock},
+    time::{Duration, Instant},
 };
 
 use miniserve::{http::StatusCode, Content, Request, Response};
@@ -50,14 +52,23 @@ fn chatbot_thread() -> (mpsc::Sender<Payload>, mpsc::Sender<()>) {
         while let Some((messages, responder)) = req_rx.recv().await {
             let doc_paths = chatbot.retrieval_documents(&messages);
             let docs = load_docs(doc_paths).await;
-            let chat_fut = chatbot.query_chat(&messages, &docs);
-            let cancel_fut = cancel_rx.recv();
-            tokio::select! {
-                response = chat_fut => {
-                    responder.send(Some(response)).unwrap();
-                }
-                _ = cancel_fut => {
-                    responder.send(None).unwrap();
+            let mut chat_fut = pin!(chatbot.query_chat(&messages, &docs));
+            let mut cancel_fut = pin!(cancel_rx.recv());
+            let start = Instant::now();
+            loop {
+                let log_fut = tokio::time::sleep(Duration::from_secs(1));
+                tokio::select! {
+                    response = &mut chat_fut => {
+                        responder.send(Some(response)).unwrap();
+                        break;
+                    }
+                    _ = &mut cancel_fut => {
+                        responder.send(None).unwrap();
+                        break;
+                    }
+                    _ = log_fut => {
+                        println!("Waiting for {} seconds", start.elapsed().as_secs());
+                    }
                 }
             }
         }
