@@ -106,7 +106,7 @@ async fn generate_response<'a>(
         return make_response(StatusCode::NOT_FOUND, "No valid route");
     };
 
-    let response_res = handler.0(request).await;
+    let response_res = handler(request).await;
 
     match response_res {
         Ok(content) => {
