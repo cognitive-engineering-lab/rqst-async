@@ -26,3 +26,15 @@ name = "Message Passing"
 [[stages]]
 label = "05-many-futures"
 name = "Waiting on Many Futures"
+
+[[stages]]
+label = "06-select"
+name = "Selecting Between Futures"
+
+[[stages]]
+label = "07-pin"
+name = "Pinning Futures"
+
+[[stages]]
+label = "08-abstractions"
+name = "Async Abstractions"
