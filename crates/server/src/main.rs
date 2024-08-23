@@ -56,7 +56,7 @@ fn chatbot_thread() -> (mpsc::Sender<Payload>, mpsc::Sender<()>) {
                 response = chat_fut => {
                     responder.send(Some(response)).unwrap();
                 }
-                _ = cancel_fut => {                    
+                _ = cancel_fut => {
                     responder.send(None).unwrap();
                 }
             }
@@ -106,7 +106,7 @@ async fn chat(req: Request) -> Response {
         }
         None => MessagesResponse::Cancelled,
     };
-    
+
     Ok(Content::Json(serde_json::to_string(&response).unwrap()))
 }
 
