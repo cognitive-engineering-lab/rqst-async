@@ -1,3 +1,5 @@
+#![warn(clippy::pedantic)]
+
 use std::{
     collections::HashMap,
     io::{self},
@@ -43,6 +45,7 @@ pub struct Server {
 
 impl Server {
     /// Creates a server with no routes.
+    #[must_use]
     pub fn new() -> Self {
         Server {
             routes: HashMap::new(),
@@ -50,6 +53,7 @@ impl Server {
     }
 
     /// Adds a new route to the server.
+    #[must_use]
     pub fn route<H: Handler>(mut self, route: impl Into<String>, handler: H) -> Self {
         self.routes.insert(route.into(), Box::new(handler));
         self
@@ -58,18 +62,23 @@ impl Server {
     /// Runs the server by listening for connections and returning responses.
     ///
     /// This function should never return.
+    ///
+    /// # Panics
+    ///
+    /// Panics if `127.0.0.1:3000` is not available.
     pub fn run(self) {
-        let listener = TcpListener::bind("127.0.0.1:3000").unwrap();
+        let listener =
+            TcpListener::bind("127.0.0.1:3000").expect("Failed to connect to 127.0.0.1:3000");
         let this = Arc::new(self);
         for stream in listener.incoming().flatten() {
             let this_ref = Arc::clone(&this);
             thread::spawn(move || {
-                let _ = this_ref.handle(stream);
+                let _ = this_ref.handle(&stream);
             });
         }
     }
 
-    fn handle(&self, stream: TcpStream) -> io::Result<()> {
+    fn handle(&self, stream: &TcpStream) -> io::Result<()> {
         protocol::handle(stream, |route, request| {
             self.routes.get(route).map(move |handler| handler(request))
         })

@@ -110,7 +110,7 @@ fn generate_response(
 }
 
 pub fn handle(
-    stream: TcpStream,
+    stream: &TcpStream,
     callback: impl Fn(&str, crate::Request) -> Option<crate::Response>,
 ) -> io::Result<()> {
     let mut reader = BufReader::new(stream.try_clone()?);
