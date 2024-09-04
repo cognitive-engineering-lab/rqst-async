@@ -1,5 +1,5 @@
 use rand::{rngs::SmallRng, Rng, SeedableRng};
-use std::{cell::RefCell, path::PathBuf, time::Duration};
+use std::{cell::RefCell, io, path::PathBuf, time::Duration};
 
 thread_local! {
     static RNG: RefCell<SmallRng> = RefCell::new(SmallRng::from_entropy());
@@ -56,5 +56,26 @@ impl Chatbot {
             format!("Have you considered: {}", docs.first().unwrap()),
             format!("I might recommend: {}", docs.last().unwrap()),
         ]
+    }
+}
+
+/// Holds chat messages and writes them to disk infrequently.
+#[derive(Default)]
+pub struct Logger {
+    logs: Vec<String>,
+}
+
+impl Logger {
+    /// Saves the message to the logger.
+    pub fn append(&mut self, message: &str) {
+        self.logs.push(message.to_string());
+    }
+
+    /// Potentially writes the logs to disk, if needed.
+    pub async fn save(&self) -> io::Result<()> {
+        if self.logs.len() % 3 == 0 {
+            tokio::fs::write("log.txt", self.logs.join("\n")).await?;
+        }
+        Ok(())
     }
 }
