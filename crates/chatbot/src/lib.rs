@@ -1,5 +1,5 @@
 use rand::{rngs::SmallRng, Rng, SeedableRng};
-use std::{cell::RefCell, time::Duration};
+use std::{cell::RefCell, path::PathBuf, time::Duration};
 
 thread_local! {
     static RNG: RefCell<SmallRng> = RefCell::new(SmallRng::from_entropy());
@@ -33,10 +33,17 @@ impl Chatbot {
         }
     }
 
+    pub fn retrieval_documents(&self, _messages: &[String]) -> Vec<PathBuf> {
+        vec![
+            PathBuf::from("data/doc1.txt"),
+            PathBuf::from("data/doc2.txt"),
+        ]
+    }
+
     /// Generates a list of possible responses given the current chat.
     ///
     /// Warning: may take a few seconds!
-    pub async fn query_chat(&mut self, messages: &[String]) -> Vec<String> {
+    pub async fn query_chat(&mut self, messages: &[String], docs: &[String]) -> Vec<String> {
         std::thread::sleep(Duration::from_secs(2));
         let most_recent = messages.last().unwrap();
         let emoji = &self.emojis[self.emoji_counter];
@@ -44,6 +51,8 @@ impl Chatbot {
         vec![
             format!("\"{most_recent}\"? And how does that make you feel? {emoji}",),
             format!("\"{most_recent}\"! Interesting! Go on... {emoji}"),
+            format!("Have you considered: {}", docs.first().unwrap()),
+            format!("I might recommend: {}", docs.last().unwrap()),
         ]
     }
 }
