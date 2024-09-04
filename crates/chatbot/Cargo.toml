@@ -1,0 +1,8 @@
+[package]
+name = "chatbot"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rand = { version = "0.8.5", features = ["small_rng"] }
+tokio = { workspace = true, features = ["time"] }
