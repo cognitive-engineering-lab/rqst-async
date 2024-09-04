@@ -22,7 +22,7 @@ pub async fn gen_random_number() -> usize {
 ///
 /// Warning: may take a few seconds!
 pub async fn query_chat(messages: &[String]) -> Vec<String> {
-    tokio::time::sleep(Duration::from_secs(2)).await;
+    std::thread::sleep(Duration::from_secs(2));
     let most_recent = messages.last().unwrap();
     vec![
         format!("\"{most_recent}\"? And how does that make you feel?"),
