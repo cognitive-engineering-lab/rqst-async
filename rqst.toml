@@ -36,5 +36,5 @@ label = "07-pin"
 name = "Pinning Futures"
 
 [[stages]]
-label = "08-abstractions"
+label = "08-abstraction"
 name = "Async Abstractions"
