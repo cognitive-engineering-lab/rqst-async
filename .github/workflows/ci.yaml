@@ -17,5 +17,3 @@ jobs:
         uses: Swatinem/rust-cache@v2
       - name: Test
         run: cargo test
-      - name: Lints
-        run: ./.githooks/pre-commit
