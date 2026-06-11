@@ -1,0 +1,86 @@
+title = "Async Rust"
+author = "cognitive-engineering-lab"
+repo = "rqst-async"
+rq-version = "0.3.0"
+description = """
+Async Rust tutorial.
+"""
+main = ["00-initial-commit"]
+test-cmd = [
+    "cargo",
+    "test",
+]
+
+[[chapters]]
+label = "00-chat-route"
+solution = ["00-implement-route"]
+
+[[chapters]]
+label = "01-async-await"
+solution = ["00-port-to-async"]
+
+[[chapters.scaffold]]
+label = "00-port-miniserve-to-async"
+expected = "fail"
+
+[[chapters.scaffold]]
+label = "01-single-request"
+expected = "fail"
+
+[[chapters.scaffold]]
+label = "02-simplify-erasedhandler"
+expected = "fail"
+
+[[chapters]]
+label = "02-join"
+scaffold = [
+    "00-add-chatbot-crate",
+    "01-include-recent-message",
+]
+solution = ["00-join-solution"]
+
+[[chapters]]
+label = "03-spawn"
+scaffold = ["00-make-query-chat-compute-intensive"]
+solution = ["00-spawn-query-chat"]
+
+[[chapters]]
+label = "04-message-passing"
+solution = ["00-message-passing-solution"]
+
+[[chapters.scaffold]]
+label = "00-add-emoji-counter"
+expected = "fail"
+
+[[chapters]]
+label = "05-many-futures"
+solution = ["00-add-solution"]
+
+[[chapters.scaffold]]
+label = "00-add-retrieval-augmented-generation"
+expected = "fail"
+
+[[chapters.scaffold]]
+label = "01-add-data"
+expected = "fail"
+
+[[chapters]]
+label = "06-select"
+scaffold = ["00-add-frontend-cancellation-support"]
+solution = [
+    "00-add-cancellation-solution",
+    "01-fix-lints",
+]
+
+[[chapters]]
+label = "07-pin"
+scaffold = ["00-make-chatbot-fns-take-varying-time"]
+solution = ["00-log-when-waiting-too-long"]
+
+[[chapters]]
+label = "08-abstraction"
+scaffold = [
+    "00-add-logger-struct",
+    "01-restore-cargo-lock",
+]
+solution = ["00-add-logger-support"]

@@ -1,0 +1,30 @@
+name: CI
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  create-bundle:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Rust toolchain
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+      - name: Install RepoQuest
+        uses: baptiste0928/cargo-install@v3.4.0
+        with:
+          crate: repo-quest
+          git: https://github.com/cognitive-engineering-lab/repo-quest.git
+          branch: next
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Test quest
+        run: |
+          repo-quest test --dir "$GITHUB_WORKSPACE"
+      - name: Bundle quest
+        run: |
+          export RUST_LOG=debug
+          repo-quest bundle --input "$GITHUB_WORKSPACE" --output rqst-async-quest.tgz
+      - uses: actions/upload-artifact@v6
+        with:
+          name: rqst-async-quest
+          path: rqst-async-quest.tgz

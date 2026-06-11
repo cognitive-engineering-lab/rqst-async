@@ -1,0 +1,11 @@
+title = "Async Rust"
+author = "cognitive-engineering-lab"
+repo = "rqst-async"
+
+[[stages]]
+label = "01-async-await"
+name = "Async and Await"
+
+[[stages]]
+label = "02-spawn"
+name = "Spawning Futures"
