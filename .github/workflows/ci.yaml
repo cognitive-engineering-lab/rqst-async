@@ -14,17 +14,13 @@ jobs:
         with:
           crate: repo-quest
           git: https://github.com/cognitive-engineering-lab/repo-quest.git
-          branch: next
       - name: Checkout
         uses: actions/checkout@v6
       - name: Test quest
-        run: |
-          repo-quest test --dir "$GITHUB_WORKSPACE"
+        run: repo-quest test
       - name: Bundle quest
-        run: |
-          export RUST_LOG=debug
-          repo-quest bundle --input "$GITHUB_WORKSPACE" --output rqst-async-quest.tgz
+        run: RUST_LOG=debug repo-quest bundle --output rqst-async.tgz
       - uses: actions/upload-artifact@v6
         with:
-          name: rqst-async-quest
-          path: rqst-async-quest.tgz
+          name: rqst-async
+          path: rqst-async.tgz
