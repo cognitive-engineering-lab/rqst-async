@@ -3,6 +3,9 @@ on:
   push:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   create-bundle:
     runs-on: ubuntu-latest
@@ -20,7 +23,8 @@ jobs:
         run: repo-quest test
       - name: Bundle quest
         run: RUST_LOG=debug repo-quest bundle --output rqst-async.tgz
-      - uses: actions/upload-artifact@v6
+      - name: Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
         with:
-          name: rqst-async
-          path: rqst-async.tgz
+          files: rqst-async.tgz
