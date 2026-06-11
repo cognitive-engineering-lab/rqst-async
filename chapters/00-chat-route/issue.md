@@ -1,9 +1,34 @@
 +++
 title = "Add /chat route"
 +++
-Welcome to the RepoQuest tutorial on async/await in Rust! You're going to learn about async/await by doing hands-on exercises within a Rust codebase. This codebase is a web server that serves a basic chat app backed by a "large" "language" "model". 
+Welcome to the RepoQuest tutorial on async/await in Rust! 
 
-Before we dive into async, you should first familiarize yourself with the codebase. This is a Rust monorepo with two crates: `miniserve`, a miniature HTTP server library, and `server`, the application using the library to serve the chatbot. You can see the documentation for `miniserve` by running:
+<details>
+  <summary>
+    <em>First time using RepoQuest? Click here!</em>
+  </summary>
+    
+  RepoQuest is a software engineering simulator. You're running a local Git forge called [Forgejo], the same tool which powers [Codeberg]. Forgejo is like GitHub, but it runs entirely on your computer.
+
+  RepoQuest teaches you programming concepts through hands-on exercises. Compared to other interactive programming resources, the main difference is that in RepoQuest, each exercise builds on the previous one: you're actually maintaining a codebase.
+
+  To play through a quest, you'll be given a series of issues, like this one. Implement the task on the correct branch, and when you're ready, merge its pull request. RepoQuest will automatically open the next issue, until you've completed the quest. You can see the current chapter in the sidebar on the right.
+
+  To work on the codebase, you'll use Git just as you would normally. Start by cloning this repo:
+
+  ```
+  git clone http://localhost:8085/hero/rqst-async
+  ```
+
+  Then you can commit and push to the forge, and the repo's CI actions will run automatically.
+
+  Good luck and have fun!
+
+  <hr>
+  
+</details>
+
+This codebase is a web server that serves a basic chat app backed by an LLM (little language model). Before we dive into async, you should first familiarize yourself with the codebase. This is a Rust monorepo with two crates: `miniserve`, a miniature HTTP server library, and `server`, the application using the library to serve the chatbot. You can see the documentation for `miniserve` by running:
 
 ```console
 cargo doc -p miniserve --open
@@ -43,10 +68,6 @@ You should commit your changes to the `00-chat-route` branch, and merge the pull
 
 ## Background
 
-Unlike a textbook, a RepoQuest tutorial is *task-first*. The learning process is oriented around solving concrete problems, and we give you those problems *before* giving you a bunch of explanations of concepts. We encourage you to read the background section in a demand-driven way &mdash; try solving the problem with what you know, and then come back and read the relevant sections of the background when you get stuck. Don't hesitate to use Rust Analyzer, Rustdoc, Google, StackOverflow, ChatGPT, or whatever other tools you find useful.
-
-Instead, RepoQuest has one main rule for effective learning: **be curious.** Do not rush through the problems. Read the compiler's error messages. Try different ways of solving the same thing. Don't copy-paste or AI-generate solutions without understanding them. With that in mind, let's briefly cover some background.
-
 ### HTTP servers
 
 This unit involves back-end web development. All the front-end work (HTML, CSS, JS) is done for you. You will be modifying an **HTTP server** (`server`) which uses an **HTTP server library** (`miniserve`). An HTTP server is a system that responds to **[HTTP requests]**. An HTTP request asks for a **method** to happen on a **route**. For our simple case, the method can be either `GET` (to retrieve static content like an HTML file) or `POST` (to send application data to the server, like a JSON blob). A route is the part of the URL that comes after the host, so <http://localhost:3000/chat> uses the `/chat` route of the HTTP server running on `localhost` port 3000.
@@ -77,3 +98,5 @@ If the web page isn't responding as you expect, try inspecting the response for 
 [Serde]: https://serde.rs/
 [serde_json]: https://docs.rs/serde_json/latest/serde_json/
 [close-issues]: https://github.blog/news-insights/product-news/closing-issues-via-commit-messages/
+[Forgejo]: https://forgejo.org/
+[Codeberg]: https://codeberg.org/
