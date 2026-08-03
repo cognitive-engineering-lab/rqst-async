@@ -1,34 +1,7 @@
 +++
 title = "Add /chat route"
 +++
-Welcome to the RepoQuest tutorial on async/await in Rust! 
-
-<details>
-  <summary>
-    <em>First time using RepoQuest? Click here!</em>
-  </summary>
-    
-  RepoQuest is a software engineering simulator. You're running a local Git forge called [Forgejo], the same tool which powers [Codeberg]. Forgejo is like GitHub, but it runs entirely on your computer.
-
-  RepoQuest teaches you programming concepts through hands-on exercises. Compared to other interactive programming resources, the main difference is that in RepoQuest, each exercise builds on the previous one: you're actually maintaining a codebase.
-
-  To play through a quest, you'll be given a series of issues, like this one. Implement the task on the correct branch, and when you're ready, merge its pull request. RepoQuest will automatically open the next issue, until you've completed the quest. You can see the current chapter in the sidebar on the right.
-
-  To work on the codebase, you'll use Git just as you would normally. Start by cloning this repo:
-
-  ```
-  git clone http://localhost:8085/hero/rqst-async
-  ```
-
-  Then you can commit and push to the forge, and the repo's CI actions will run automatically.
-
-  Good luck and have fun!
-
-  <hr>
-  
-</details>
-
-This codebase is a web server that serves a basic chat app backed by an LLM (little language model). Before we dive into async, you should first familiarize yourself with the codebase. This is a Rust monorepo with two crates: `miniserve`, a miniature HTTP server library, and `server`, the application using the library to serve the chatbot. You can see the documentation for `miniserve` by running:
+Welcome to the RepoQuest tutorial on async/await in Rust! This codebase is a web server that serves a basic chat app backed by an LLM (little language model). Before we dive into async, you should first familiarize yourself with the codebase. This is a Rust monorepo with two crates: `miniserve`, a miniature HTTP server library, and `server`, the application using the library to serve the chatbot. You can see the documentation for `miniserve` by running:
 
 ```console
 cargo doc -p miniserve --open
