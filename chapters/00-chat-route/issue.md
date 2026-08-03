@@ -1,10 +1,10 @@
 +++
 title = "Add /chat route"
 +++
-Welcome to the RepoQuest tutorial on async/await in Rust! This codebase is a web server that serves a basic chat app backed by an LLM (little language model). Before we dive into async, you should first familiarize yourself with the codebase. This is a Rust monorepo with two crates: `miniserve`, a miniature HTTP server library, and `server`, the application using the library to serve the chatbot. You can see the documentation for `miniserve` by running:
+Welcome to the RepoQuest tutorial on async/await in Rust! This codebase is a web server that serves a basic chat app backed by an LLM (little language model). Before we dive into async, you should first familiarize yourself with the codebase. This is a Rust monorepo with two crates: `minihttp`, a miniature HTTP server library, and `server`, the application using the library to serve the chatbot. You can see the documentation for `minihttp` by running:
 
 ```console
-cargo doc -p miniserve --open
+cargo doc -p minihttp --open
 ```
 
 You can start the web server by running:
@@ -13,7 +13,7 @@ You can start the web server by running:
 cargo run
 ```
 
-And then visit <http://localhost:3000> in your browser.
+And then visit <http://localhost:3000> in your browser. You should see a simple page with an input bar that doesn't do anything.
 
 ## Task
 
@@ -37,17 +37,47 @@ If your implementation works, then you should be able to see your response appea
 
 ![ChatABC Frontend Screenshot]({{assets}}/chat-abc-frontend.png)
 
-You should commit your changes to the `00-chat-route` branch, and merge the pull request {{00-chat-route.pr}} once you've completed the task. This will auto-close this issue, and you can proceed to the next task by running `repo-quest` in your terminal in the folder containing this repository.
+## Getting Started
+
+If you haven't already, clone this repo into a directory on your computer:
+
+```console
+git clone {{repo-url}}
+cd {{repo-name}}
+```
+
+If you already cloned the repository, pull its changes:
+
+```console
+git pull
+```
+
+Checkout the branch created for this task:
+
+```console
+git checkout {{00-chat-route.branch}}
+```
+
+You should make changes on the branch. For example, you can try running:
+
+```console
+touch hello.txt
+git add hello.txt
+git commit -m "Add hello.txt"
+git push
+```
+
+And you'll see that change show up here in RepoQuest. You should commit your solution to this task to the `{{00-chat-route.branch}}` branch, and then merge the pull request {{00-chat-route.pr}}. Merging the PR will auto-close this issue, and you will proceed to the next task.
 
 ## Background
 
 ### HTTP servers
 
-This unit involves back-end web development. All the front-end work (HTML, CSS, JS) is done for you. You will be modifying an **HTTP server** (`server`) which uses an **HTTP server library** (`miniserve`). An HTTP server is a system that responds to **[HTTP requests]**. An HTTP request asks for a **method** to happen on a **route**. For our simple case, the method can be either `GET` (to retrieve static content like an HTML file) or `POST` (to send application data to the server, like a JSON blob). A route is the part of the URL that comes after the host, so <http://localhost:3000/chat> uses the `/chat` route of the HTTP server running on `localhost` port 3000.
+This unit involves back-end web development. All the front-end work (HTML, CSS, JS) is done for you. You will be modifying an **HTTP server** (`server`) which uses an **HTTP server library** (`minihttp`). An HTTP server is a system that responds to **[HTTP requests]**. An HTTP request asks for a **method** to happen on a **route**. For our simple case, the method can be either `GET` (to retrieve static content like an HTML file) or `POST` (to send application data to the server, like a JSON blob). A route is the part of the URL that comes after the host, so <http://localhost:3000/chat> uses the `/chat` route of the HTTP server running on `localhost` port 3000.
 
-### Miniserve
+### minihttp
 
-Miniserve is a simple HTTP server that is a thin layer on top of Rust's [`std::net`] module. It's a stand-in for more production-grade HTTP servers like [Axum] and [Rocket]. The starter code contains an example of how to create and run a miniserve server, and you can check the documentation / source code for more details.
+`minihttp` is a simple HTTP server that is a thin layer on top of Rust's [`std::net`] module. It's a stand-in for more production-grade HTTP servers like [Axum] and [Rocket]. The starter code contains an example of how to create and run a minihttp server, and you can check the documentation / source code for more details.
 
 ### JSON
 

@@ -73,7 +73,7 @@ impl Logger {
 
     /// Potentially writes the logs to disk, if needed.
     pub async fn save(&self) -> io::Result<()> {
-        if self.logs.len() % 3 == 0 {
+        if self.logs.len().is_multiple_of(3) {
             tokio::fs::write("log.txt", self.logs.join("\n")).await?;
         }
         Ok(())

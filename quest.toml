@@ -20,7 +20,7 @@ label = "01-async-await"
 solution = ["00-port-to-async"]
 
 [[chapters.scaffold]]
-label = "00-port-miniserve-to-async"
+label = "00-port-minihttp-to-async"
 expected = "fail"
 
 [[chapters.scaffold]]

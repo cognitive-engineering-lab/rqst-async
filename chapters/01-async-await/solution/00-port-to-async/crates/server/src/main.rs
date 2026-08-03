@@ -1,4 +1,4 @@
-use miniserve::{http::StatusCode, Content, Request, Response};
+use minihttp::{Content, Request, Response, http::StatusCode};
 use serde::{Deserialize, Serialize};
 
 async fn index(_req: Request) -> Response {
@@ -26,7 +26,7 @@ async fn chat(req: Request) -> Response {
 
 #[tokio::main]
 async fn main() {
-    miniserve::Server::new()
+    minihttp::Server::new()
         .route("/", index)
         .route("/chat", chat)
         .run()

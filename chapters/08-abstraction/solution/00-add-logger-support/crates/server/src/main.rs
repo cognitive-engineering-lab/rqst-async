@@ -3,7 +3,8 @@ use std::{
     sync::{Arc, LazyLock},
 };
 
-use miniserve::{http::StatusCode, Content, Request, Response};
+use minihttp::{Content, Request, Response, http::StatusCode};
+
 use serde::{Deserialize, Serialize};
 use stateful::StatefulThread;
 use tokio::{fs, join, task::JoinSet};
@@ -118,7 +119,7 @@ async fn chat(req: Request) -> Response {
 
 #[tokio::main]
 async fn main() {
-    miniserve::Server::new()
+    minihttp::Server::new()
         .route("/", index)
         .route("/chat", chat)
         .route("/cancel", cancel)

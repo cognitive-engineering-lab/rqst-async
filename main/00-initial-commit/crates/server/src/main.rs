@@ -1,4 +1,4 @@
-use miniserve::{Content, Request, Response};
+use minihttp::{Content, Request, Response};
 
 fn index(_req: Request) -> Response {
     let content = include_str!("../index.html").to_string();
@@ -6,5 +6,5 @@ fn index(_req: Request) -> Response {
 }
 
 fn main() {
-    miniserve::Server::new().route("/", index).run()
+    minihttp::Server::new().route("/", index).run()
 }

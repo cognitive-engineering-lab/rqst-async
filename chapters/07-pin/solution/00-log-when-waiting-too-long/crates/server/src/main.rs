@@ -5,7 +5,8 @@ use std::{
     time::{Duration, Instant},
 };
 
-use miniserve::{http::StatusCode, Content, Request, Response};
+use minihttp::{Content, Request, Response, http::StatusCode};
+
 use serde::{Deserialize, Serialize};
 use tokio::{
     fs, join,
@@ -123,7 +124,7 @@ async fn chat(req: Request) -> Response {
 
 #[tokio::main]
 async fn main() {
-    miniserve::Server::new()
+    minihttp::Server::new()
         .route("/", index)
         .route("/chat", chat)
         .route("/cancel", cancel)

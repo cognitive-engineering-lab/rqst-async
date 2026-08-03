@@ -1,4 +1,4 @@
-use miniserve::{http::StatusCode, Content, Request, Response};
+use minihttp::{http::StatusCode, Content, Request, Response};
 use serde::{Deserialize, Serialize};
 
 fn index(_req: Request) -> Response {
@@ -25,7 +25,7 @@ fn chat(req: Request) -> Response {
 }
 
 fn main() {
-    miniserve::Server::new()
+    minihttp::Server::new()
         .route("/", index)
         .route("/chat", chat)
         .run()

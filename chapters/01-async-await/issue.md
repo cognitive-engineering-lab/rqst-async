@@ -3,7 +3,7 @@ title = "Port server to async"
 +++
 ## Task
 
-In {{01-async-await.pr}}, the `miniserve` library was refactored to use Rust's async feature. Unfortunately this broke the build, because the new API is not backwards-compatible. Your task is to port the `server` crate so it has the same functionality as before, but such that it works with the new miniserve API. Commit your solution to {{01-async-await.pr}}.
+In {{01-async-await.pr}}, the `minihttp` library was refactored to use Rust's async feature. Unfortunately this broke the build, because the new API is not backwards-compatible. Your task is to port the `server` crate so it has the same functionality as before, but such that it works with the new minihttp API. Commit your solution to {{01-async-await.pr}}.
 
 ## Background
 
@@ -72,7 +72,7 @@ Rust does not allow the `main` function to be `async`. The reason has to do with
 
 ### Providing an async runtime
 
-For this tutorial, we will be using [Tokio], a popular and featureful async runtime (but the core concepts will translate to other runtimes). `miniserve` is already using Tokio. To use it within `server`, add it as a dependency using the `full` feature, e.g.,
+For this tutorial, we will be using [Tokio], a popular and featureful async runtime (but the core concepts will translate to other runtimes). `minihttp` is already using Tokio. To use it within `server`, add it as a dependency using the `full` feature, e.g.,
 
 ```console
 cargo add tokio --features full -p server
