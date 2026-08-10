@@ -5,11 +5,11 @@ title = "Integrate retrieval-augmented generation"
 
 ### Functionality
 
-In {{05-many-futures.pr}}, your colleague modified the `Chatbot` API to support *retrieval-augmented generation* (RAG), a cutting-edge chatbot technique. To use RAG, when a user provides a set of input messages, you should first call `Chatbot::retrieval_documents` to generate a set of paths to documents that the model thinks are relevant to the query. Then you should read those files from disk, and pass their contents in the new `docs` parameter of `Chatbot::query_chat`. 
+In {{05-many-futures.pr}}, your colleague modified the `Chatbot` API to support *retrieval-augmented generation* (RAG), a cutting-edge chatbot technique. To use RAG, when a user provides a set of input messages, you should first call `Chatbot::retrieval_documents` to generate a set of paths to documents that the model thinks are relevant to the query. Then you should read those files from disk, and pass their contents in the new `docs` parameter of `Chatbot::query_chat`.
 
 ### Performance
 
-All documents should be retrieved from disk in parallel,
+All documents should be retrieved from disk in parallel.
 
 ## Background
 

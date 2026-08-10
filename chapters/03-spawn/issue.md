@@ -5,7 +5,7 @@ title = "Fix latency of compute-intensive chatbot"
 
 ### Performance
 
-In {{03-spawn.pr}}, a colleague modified the `chatbot::query_chat` function to become compute-intensive (blocking the thread it's called on). This unfortunately seems to have caused the latency of the `chat` route to increase to 4 seconds again. Your task is to fix this situation and reduce the latency of the route back to 2 seconds. 
+In {{03-spawn.pr}}, a colleague modified the `chatbot::query_chat` function to become compute-intensive (blocking the thread it's called on). This unfortunately seems to have caused the latency of the `chat` route to increase to 4 seconds again. Your task is to fix this situation and reduce the latency of the route back to 2 seconds.
 
 **Bonus challenge:** Your solution should not require cloning any more data than was required before {{03-spawn.pr}}.
 
@@ -100,7 +100,7 @@ This signature says:
 
 These restrictions are quite similar to the restrictions on closures passed to `std::thread::spawn`. A spawned future must be sendable across threads, so it cannot store a non-sendable type like `Rc`. A spawned future can also only store references with a `'static` lifetime, in case the spawned future outlives its initial context of creation.
 
-You can reuse Rust's standard concurrency primitives to help in these situations. For example, [`Arc`] can share data across threads, and [`Mutex`] can mutate shared data. 
+You can reuse Rust's standard concurrency primitives to help in these situations. For example, [`Arc`] can share data across threads, and [`Mutex`] can mutate shared data.
 
 <details>
 

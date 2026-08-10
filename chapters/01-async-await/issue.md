@@ -7,7 +7,7 @@ In {{01-async-await.pr}}, the `minihttp` library was refactored to use Rust's as
 
 ## Background
 
-Remember &mdash; try solving the problem *before* reading the background. What compilers errors do you get? Do they give any helpful advice? How far can you get before you get stuck? Don't forget to pull the merged PR before you begin.
+Remember &mdash; try solving the problem *before* reading the background. What compilers errors do you get? Do they give any helpful advice? How far can you get before you get stuck? Don't forget to pull and checkout the `{{01-async-await.branch}}` branch before you begin.
 
 ### Futures
 
@@ -18,7 +18,7 @@ A **future** is a computation that eventually returns a value. Rust represents f
 The easiest way to make a future is to use the **`async` keyword**. The `async` keyword can annotate a function:
 
 ```rust
-async fn returns_a_future() -> i32 { 
+async fn returns_a_future() -> i32 {
   0
 }
 ```
@@ -26,7 +26,7 @@ async fn returns_a_future() -> i32 {
 Or it can annotate block:
 
 ```rust
-fn returns_a_future() -> impl Future<Output = i32> { 
+fn returns_a_future() -> impl Future<Output = i32> {
   async { 0 }
 }
 ```
@@ -44,8 +44,8 @@ fn i_want_an_async_fn<A: Future, B: Fn() -> A>(_f: B) {}
 fn main() {
   let fut = async { println!("Hello world"); };
   i_want_a_future(fut);
-  
-  
+
+
   async fn fut_fn() { println!("Hello world"); }
   i_want_an_async_fn(fut_fn);
 }
