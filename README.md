@@ -4,16 +4,18 @@ This repo provides an interactive tutorial for learning about async/await in Rus
 
 ## Getting Started
 
-You will need [Docker](https://docs.docker.com/engine/install/) installed to run RepoQuest. Start RepoQuest by running:
+**Prerequisites:** You will need [Docker](https://docs.docker.com/engine/install/) or [Podman](https://podman.io/docs/installation) installed to run RepoQuest.
 
-```
-curl -sSl https://raw.githubusercontent.com/cognitive-engineering-lab/repo-quest/refs/heads/main/run-repo-quest.sh | sh
-```
+1. Start RepoQuest by running:
 
-Or visit the [RepoQuest documentation][RepoQuest] for other ways to run it.
+   ```
+   curl -sSl https://raw.githubusercontent.com/cognitive-engineering-lab/repo-quest/refs/heads/main/run-repo-quest.sh | sh
+   ```
 
-Next, download the latest Async Rust quest bundle from our releases page by clicking this link: https://github.com/cognitive-engineering-lab/rqst-async/releases/latest/download/rqst-async.tgz
+   Alternatively, visit the [RepoQuest documentation][RepoQuest] for other ways to run it.
 
-Finally, on the RepoQuest home page, upload the quest bundle and click "Start Quest", then follow the instructions.
+2. Download the latest Async Rust quest bundle from our releases page by clicking this link: https://github.com/cognitive-engineering-lab/rqst-async/releases/latest/download/rqst-async.tgz
 
-[RepoQuest]: https://github.com/cognitive-engineering-lab/repo-quest
+3. On the [RepoQuest home page](http://localhost:8085), upload the quest bundle and click "Start Quest", then follow the instructions on-screen.
+
+[RepoQuest]: https://cel.cs.brown.edu/repo-quest/learners.html
