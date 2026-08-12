@@ -67,7 +67,7 @@ git commit -m "Add hello.txt"
 git push
 ```
 
-And you'll see that change show up here in RepoQuest. You should commit your solution to this task to the `{{00-chat-route.branch}}` branch, and then merge the pull request {{00-chat-route.pr}}. Merging the PR will auto-close this issue, and you will proceed to the next task.
+And you'll see that change show up in the RepoQuest forge at <{{repo-url}}/src/branch/{{00-chat-route.branch}}>. You should commit your solution to this task to the `{{00-chat-route.branch}}` branch, and then merge the pull request {{00-chat-route.pr}}. Merging the PR will auto-close this issue, and you will proceed to the next task.
 
 ## Background
 
