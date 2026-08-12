@@ -1,6 +1,6 @@
 # ChatABC
 
-**Chat** using **A**sync, **B**ecause we **C**an.
+**Chat** using **A**sync, **B**ecause we **C**an. This repo contains a simple chatbot using LLMs (Laughably Little Machinery) to respond to user requests.
 
 ## Usage
 
