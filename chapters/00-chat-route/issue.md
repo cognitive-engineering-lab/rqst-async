@@ -1,7 +1,42 @@
 +++
 title = "Add /chat route"
 +++
-Welcome to the RepoQuest tutorial on async/await in Rust! This codebase is a web server that serves a basic chat app backed by an LLM (little language model). Before we dive into async, you should first familiarize yourself with the codebase. This is a Rust monorepo with two crates: `minihttp`, a miniature HTTP server library, and `server`, the application using the library to serve the chatbot. You can see the documentation for `minihttp` by running:
+Welcome to the RepoQuest tutorial on async/await in Rust! This codebase is a web server that serves a basic chat app backed by an "LLM" (Laughably Little Machinery). Before we dive into async, you should first get the codebase up and running on your computer.
+
+
+## Getting Started
+
+If you haven't already, clone this repo into a directory on your computer:
+
+```console
+git clone {{repo-url}}
+cd {{repo-name}}
+```
+
+If you already cloned the repository, pull its changes:
+
+```console
+git pull
+```
+
+Checkout the branch created for this task:
+
+```console
+git checkout {{00-chat-route.branch}}
+```
+
+You should make changes on the branch. For example, you can try running:
+
+```console
+touch hello.txt
+git add hello.txt
+git commit -m "Add hello.txt"
+git push
+```
+
+And you'll see that change show up in the RepoQuest forge at <{{repo-url}}/src/branch/{{00-chat-route.branch}}>.
+
+This is a Rust monorepo with two crates: `minihttp`, a miniature HTTP server library, and `server`, the application using the library to serve the chatbot. You can see the documentation for `minihttp` by running:
 
 ```console
 cargo doc -p minihttp --open
@@ -37,37 +72,7 @@ If your implementation works, then you should be able to see your response appea
 
 ![ChatABC Frontend Screenshot]({{assets}}/chat-abc-frontend.png)
 
-## Getting Started
-
-If you haven't already, clone this repo into a directory on your computer:
-
-```console
-git clone {{repo-url}}
-cd {{repo-name}}
-```
-
-If you already cloned the repository, pull its changes:
-
-```console
-git pull
-```
-
-Checkout the branch created for this task:
-
-```console
-git checkout {{00-chat-route.branch}}
-```
-
-You should make changes on the branch. For example, you can try running:
-
-```console
-touch hello.txt
-git add hello.txt
-git commit -m "Add hello.txt"
-git push
-```
-
-And you'll see that change show up in the RepoQuest forge at <{{repo-url}}/src/branch/{{00-chat-route.branch}}>. You should commit your solution to this task to the `{{00-chat-route.branch}}` branch, and then merge the pull request {{00-chat-route.pr}}. Merging the PR will auto-close this issue, and you will proceed to the next task.
+You should commit your solution to this task to the `{{00-chat-route.branch}}` branch, and then merge the pull request {{00-chat-route.pr}}. Merging the PR will auto-close this issue, and you will proceed to the next task.
 
 ## Background
 

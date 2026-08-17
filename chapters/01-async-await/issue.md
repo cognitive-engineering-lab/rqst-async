@@ -5,9 +5,16 @@ title = "Port server to async"
 
 In {{01-async-await.pr}}, the `minihttp` library was refactored to use Rust's async feature. Unfortunately this broke the build, because the new API is not backwards-compatible. Your task is to port the `server` crate so it has the same functionality as before, but such that it works with the new minihttp API. Commit your solution to {{01-async-await.pr}}.
 
+Remember that before starting each task, you should pull and checkout its branch:
+
+```
+git pull
+git checkout {{01-async-await.branch}}
+```
+
 ## Background
 
-Remember &mdash; try solving the problem *before* reading the background. What compilers errors do you get? Do they give any helpful advice? How far can you get before you get stuck? Don't forget to pull and checkout the `{{01-async-await.branch}}` branch before you begin.
+Remember &mdash; try solving the problem *before* reading the background. What compilers errors do you get? Do they give any helpful advice? How far can you get before you get stuck?
 
 ### Futures
 
