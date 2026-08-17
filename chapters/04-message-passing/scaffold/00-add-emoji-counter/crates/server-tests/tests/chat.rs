@@ -17,11 +17,13 @@ fn chat_gives_reply() {
 #[tokio::test]
 async fn chat_gives_known_reply() {
     let server = Server::start();
-    let (status, body) = server.post("/chat", r#"{"messages": ["Hello, world!"]}"#);
-    assert_eq!(status, 200, "POST /chat responded {status}: {body:?}");
+
     let replies = Chatbot::new(vec!["".to_string()])
         .query_chat(&["Hello, world!".to_string()])
         .await;
+
+    let (status, body) = server.post("/chat", r#"{"messages": ["Hello, world!"]}"#);
+    assert_eq!(status, 200, "POST /chat responded {status}: {body:?}");
 
     let result =
         serde_json::from_str::<serde_json::Value>(&body).expect("/chat returned invalid JSON");

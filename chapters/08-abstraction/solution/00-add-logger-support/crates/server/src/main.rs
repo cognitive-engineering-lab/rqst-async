@@ -1,4 +1,5 @@
 use std::{
+    io,
     path::PathBuf,
     sync::{Arc, LazyLock},
 };
@@ -29,13 +30,14 @@ enum MessagesResponse {
 }
 
 async fn load_docs(paths: Vec<PathBuf>) -> Vec<String> {
-    let mut doc_futs = paths
-        .into_iter()
-        .map(fs::read_to_string)
-        .collect::<JoinSet<_>>();
-    let mut docs = Vec::new();
+    let mut docs = vec!["".to_string(); paths.len()];
+    let mut doc_futs = JoinSet::<io::Result<(usize, String)>>::new();
+    for (i, path) in paths.into_iter().enumerate() {
+        doc_futs.spawn(async move { Ok((i, fs::read_to_string(path).await?)) });
+    }
     while let Some(result) = doc_futs.join_next().await {
-        docs.push(result.unwrap().unwrap());
+        let (i, content) = result.unwrap().unwrap();
+        docs[i] = content;
     }
     docs
 }

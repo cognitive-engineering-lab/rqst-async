@@ -1,4 +1,4 @@
-use minihttp::{Content, Request, Response, http::StatusCode};
+use minihttp::{http::StatusCode, Content, Request, Response};
 use serde::{Deserialize, Serialize};
 
 fn index(_req: Request) -> Response {

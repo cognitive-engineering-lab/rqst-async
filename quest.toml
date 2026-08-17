@@ -60,9 +60,7 @@ expected = "fail"
 
 [[chapters]]
 label = "06-select"
-solution = [
-    "00-add-cancellation-solution",
-]
+solution = ["00-add-cancellation-solution"]
 
 [[chapters.scaffold]]
 label = "00-add-frontend-cancellation-support"
