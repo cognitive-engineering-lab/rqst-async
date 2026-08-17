@@ -1,6 +1,6 @@
 # RepoQuest: Async Rust
 
-This repo provides an interactive tutorial for learning about async/await in Rust. It uses  [RepoQuest] to give you hands-on experience working on a simple backend for a web app.
+This repo provides an interactive tutorial for learning about async/await in Rust. It uses [RepoQuest][rq-home] to give you hands-on experience working on a simple backend for a web app.
 
 ## Getting Started
 
@@ -8,14 +8,15 @@ This repo provides an interactive tutorial for learning about async/await in Rus
 
 1. Start RepoQuest by running:
 
-   ```
+   ```shell
    curl -sSl https://raw.githubusercontent.com/cognitive-engineering-lab/repo-quest/refs/heads/main/run-repo-quest.sh | sh
    ```
 
-   Alternatively, visit the [RepoQuest documentation][RepoQuest] for other ways to run it.
+   This script will download and run sandboxed containers, and will not otherwise read or write to your computer. For more details on setting up RepoQuest, [visit its documentation][rq-install].
 
 2. Download the latest Async Rust quest bundle from our releases page by clicking this link: https://github.com/cognitive-engineering-lab/rqst-async/releases/latest/download/rqst-async.tgz
 
 3. On the [RepoQuest home page](http://localhost:8085), upload the quest bundle and click "Start Quest", then follow the instructions on-screen.
 
-[RepoQuest]: https://cel.cs.brown.edu/repo-quest/learners.html
+[rq-home]: https://github.com/cognitive-engineering-lab/repo-quest
+[rq-install]: https://cel.cs.brown.edu/repo-quest/learners.html
