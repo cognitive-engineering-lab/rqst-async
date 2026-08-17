@@ -17,6 +17,10 @@ test-cmd = [
 label = "00-chat-route"
 solution = ["00-implement-route"]
 
+[[chapters.scaffold]]
+label = "00-unit-test"
+expected = "fail"
+
 [[chapters]]
 label = "01-async-await"
 solution = ["00-port-to-async"]
@@ -27,8 +31,11 @@ expected = "fail"
 
 [[chapters]]
 label = "02-join"
-scaffold = ["00-add-chatbot-crate"]
 solution = ["00-join-solution"]
+
+[[chapters.scaffold]]
+label = "00-add-chatbot-crate"
+expected = "fail"
 
 [[chapters]]
 label = "03-spawn"
@@ -53,11 +60,13 @@ expected = "fail"
 
 [[chapters]]
 label = "06-select"
-scaffold = ["00-add-frontend-cancellation-support"]
 solution = [
     "00-add-cancellation-solution",
-    "01-fix-lints",
 ]
+
+[[chapters.scaffold]]
+label = "00-add-frontend-cancellation-support"
+expected = "fail"
 
 [[chapters]]
 label = "07-pin"

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ChatABC</title>
+    <style>
+      #spinner.active {
+        width: 0.75em;
+        height: 0.75em;
+        border-top: 2px solid #555;
+        border-right: 2px solid transparent;
+        border-radius: 50%;
+        display: inline-block;
+        box-sizing: border-box;
+        animation: rotation 1s linear infinite;
+        margin-left: 10px;
+      }
+
+      @keyframes rotation {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>ChatABC</h1>
+    <form id="input">
+      <input type="text" />
+      <input type="submit" />
+      <span id="spinner"></span>
+    </form>
+    <div id="messages"></div>
+
+    <script>
+      let chat = { messages: [] };
+      let msgContainer = document.getElementById("messages");
+      let textEl = document.querySelector("form input[type=text]");
+      let spinnerEl = document.getElementById("spinner");
+
+      async function fetchChat(chat) {
+        spinnerEl.classList.add("active");
+        textEl.setAttribute("disabled", "");
+        try {
+          let response = await fetch("/chat", {
+            method: "post",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(chat)
+          });
+          if (!response.ok) throw new Error(response.statusText);
+          return await response.json();
+        } finally {
+          spinnerEl.classList.remove("active");
+          textEl.removeAttribute("disabled");
+        }
+      }   
+
+      function updateChat(newChat) {
+        chat = newChat;
+        msgContainer.innerHTML = '';
+        for (let msg of chat.messages) {
+          msgContainer.innerHTML += `<div>${msg}</div>`;
+        }
+      }
+      
+      function onSubmit(event) {
+        event.preventDefault();
+        chat.messages.push(textEl.value);
+        textEl.value = "";
+        fetchChat(chat).then(updateChat);
+      }
+
+      function main() {
+        document.getElementById("input").addEventListener("submit", onSubmit);        
+      }
+
+      main();
+    </script>
+  </body>
+</html>

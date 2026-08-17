@@ -1,0 +1,13 @@
+[package]
+name = "server-tests"
+version = "0.1.0"
+edition = { workspace = true }
+publish = false
+
+[dependencies]
+minreq = "3.0.0"
+
+[dev-dependencies]
+serde_json = { workspace = true }
+chatbot = { path = "../chatbot" }
+tokio = { workspace = true, features = ["rt", "macros", "rt-multi-thread"] }

@@ -85,9 +85,12 @@ impl Decoder for HttpCodec {
 }
 
 fn make_response(status: http::StatusCode, explanation: &str) -> http::Response<Vec<u8>> {
+    let body = explanation.as_bytes().to_vec();
     http::Response::builder()
         .status(status)
-        .body(explanation.as_bytes().to_vec())
+        .header("Content-Type", "text/plain")
+        .header("Content-Length", body.len())
+        .body(body)
         .unwrap()
 }
 

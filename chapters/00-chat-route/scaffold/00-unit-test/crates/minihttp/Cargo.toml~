@@ -1,0 +1,8 @@
+[package]
+name = "miniserve"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+http = "1.1.0"
+httparse = "1.9.4"
