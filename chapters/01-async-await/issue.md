@@ -12,6 +12,8 @@ git pull
 git checkout {{01-async-await.branch}}
 ```
 
+This challenge does not contain any unit tests, as the goal is just to make the server compile against the new API.
+
 ## Background
 
 Remember &mdash; try solving the problem *before* reading the background. What compilers errors do you get? Do they give any helpful advice? How far can you get before you get stuck?

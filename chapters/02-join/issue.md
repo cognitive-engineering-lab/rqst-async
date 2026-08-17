@@ -7,6 +7,8 @@ title = "Integrate chatbot crate"
 
 In {{02-join.pr}}, a colleague has implemented a more intelligent chatbot in the `chatbot` crate. Your task is to integrate the chatbot into the `/chat` route handler of the application server. Specifically, you should use `chatbot::query_chat` on the current conversation to generate a list of possible responses, and then use `chatbot::gen_random_number` to randomly select from amongst the list of responses. You will need to add the `chatbot` dependency to `crates/server/Cargo.toml`.
 
+This challenge comes with a basic unit test for correctness, but this (and future) tests cannot ensure that your code satisfies the performance requirements below. You will need to check those yourself.
+
 ### Performance
 
 These two functions are I/O intensive, meaning they each spend 2 seconds performing non-blocking operations before returning[^sleep]. You should minimize the latency of the chatbot, i.e., return a response from `/chat` within 2 seconds rather than 4. Try querying the chatbot in the frontend to observe the latency of the backend server.
@@ -50,5 +52,3 @@ async fn both() {
 
 [`tokio::time::sleep`]: https://docs.rs/tokio/1.39.2/tokio/time/fn.sleep.html
 [`join!`]: https://docs.rs/tokio/1.39.2/tokio/macro.join.html
-
-

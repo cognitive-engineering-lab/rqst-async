@@ -50,6 +50,14 @@ cargo run
 
 And then visit <http://localhost:3000> in your browser. You should see a simple page with an input bar that doesn't do anything.
 
+Some of your challenges, like this one, come with accompanying unit tests to help you check for correctness. The starter code for this challenge ({{00-chat-route.pr}}) adds a new crate, `server-test`, which contains those tests. You can run the tests with:
+
+```console
+cargo test
+```
+
+The tests are also run in CI via Forgejo Actions, so you can check the PR page for whether the tests have passed.
+
 ## Task
 
 To get warmed up, we'll start with a non-async task. You may have noticed that the chat bar in the web app does nothing. Your task is to implement a naive chatbot on the `/chat` route of the server. Specifically, the web client will send a POST request containing a JSON data structure that looks like:
@@ -73,6 +81,11 @@ If your implementation works, then you should be able to see your response appea
 ![ChatABC Frontend Screenshot]({{assets}}/chat-abc-frontend.png)
 
 You should commit your solution to this task to the `{{00-chat-route.branch}}` branch, and then merge the pull request {{00-chat-route.pr}}. Merging the PR will auto-close this issue, and you will proceed to the next task.
+
+<details>
+	<summary><em>What about AI coding agents?</em></summary>
+	<p>This quest is designed to teach you about the fine-grained details of async/await in Rust. The problems are small enough and the instructions are clear enough that an AI agent can trivially solve most challenges. We recommend you attempt to solve the quest on your own, relying on AI assistance only as a last resort.</p>
+</details>
 
 ## Background
 
