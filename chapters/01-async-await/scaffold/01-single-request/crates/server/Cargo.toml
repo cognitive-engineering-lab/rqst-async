@@ -1,9 +1,0 @@
-[package]
-name = "server"
-version = "0.1.0"
-edition = { workspace = true }
-
-[dependencies]
-minihttp = { path = "../minihttp" }
-serde = { version = "1.0.204", features = ["derive"] }
-serde_json = "1.0.121"

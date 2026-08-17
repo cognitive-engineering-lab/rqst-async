@@ -1,12 +1,12 @@
 title = "Async Rust"
-author = "Will Crichton"
 version = "0.1.2"
+author = "Will Crichton"
 repository = "https://github.com/cognitive-engineering-lab/rqst-async"
-quest-repo = "async-rust"
 rq-version = "0.4.0"
 description = """
 Async Rust tutorial.
 """
+quest-repo = "async-rust"
 main = ["00-initial-commit"]
 test-cmd = [
     "cargo",
@@ -25,20 +25,9 @@ solution = ["00-port-to-async"]
 label = "00-port-minihttp-to-async"
 expected = "fail"
 
-[[chapters.scaffold]]
-label = "01-single-request"
-expected = "fail"
-
-[[chapters.scaffold]]
-label = "02-simplify-erasedhandler"
-expected = "fail"
-
 [[chapters]]
 label = "02-join"
-scaffold = [
-    "00-add-chatbot-crate",
-    "01-include-recent-message",
-]
+scaffold = ["00-add-chatbot-crate"]
 solution = ["00-join-solution"]
 
 [[chapters]]
@@ -62,10 +51,6 @@ solution = ["00-add-solution"]
 label = "00-add-retrieval-augmented-generation"
 expected = "fail"
 
-[[chapters.scaffold]]
-label = "01-add-data"
-expected = "fail"
-
 [[chapters]]
 label = "06-select"
 scaffold = ["00-add-frontend-cancellation-support"]
@@ -81,8 +66,5 @@ solution = ["00-log-when-waiting-too-long"]
 
 [[chapters]]
 label = "08-abstraction"
-scaffold = [
-    "00-add-logger-struct",
-    "01-restore-cargo-lock",
-]
+scaffold = ["00-add-logger-struct"]
 solution = ["00-add-logger-support"]

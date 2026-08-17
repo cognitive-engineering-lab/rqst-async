@@ -106,7 +106,7 @@ async fn generate_response<'a>(
         return make_response(StatusCode::NOT_FOUND, "No valid route");
     };
 
-    let response_res = handler.0(request).await;
+    let response_res = handler(request).await;
 
     match response_res {
         Ok(content) => {
@@ -129,7 +129,7 @@ pub async fn handle<'a>(
     callback: &'a (impl Fn(&str) -> Option<&'a crate::ErasedHandler> + 'a),
 ) -> io::Result<()> {
     let mut transport = Framed::new(stream, HttpCodec);
-    while let Some(request) = transport.next().await {
+    if let Some(request) = transport.next().await {
         match request {
             Ok(request) => {
                 let response = generate_response(request, callback).await;
