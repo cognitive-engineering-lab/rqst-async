@@ -18,5 +18,9 @@ This repo provides an interactive tutorial for learning about async/await in Rus
 
 3. On the [RepoQuest home page](http://localhost:8085), upload the quest bundle and click "Start Quest", then follow the instructions on-screen.
 
+You can watch this ~3min video to get a quick overview of setting up and using this quest:
+
+[![Watch the video](https://img.youtube.com/vi/ReRIwvqgq_0/default.jpg)](https://youtu.be/ReRIwvqgq_0)
+
 [rq-home]: https://github.com/cognitive-engineering-lab/repo-quest
 [rq-install]: https://cel.cs.brown.edu/repo-quest/learners.html
